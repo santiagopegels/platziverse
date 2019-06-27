@@ -1,0 +1,24 @@
+{
+  "name": "platziverse-web",
+  "version": "1.0.0",
+  "description": "A simple IoT Plataform - Web",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "DEBUG=platziverse:* nodemon server.js",
+    "lint": "standard"
+  },
+  "author": "Santiago Pegels",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "platziverse-agent": "file:../platziverse-agent",
+    "socket.io": "^2.2.0"
+  }
+}
