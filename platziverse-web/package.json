@@ -4,21 +4,49 @@
   "description": "A simple IoT Plataform - Web",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node server.js",
+    "prestart": "npm run build",
     "start-dev": "DEBUG=platziverse:* nodemon server.js",
+    "prestart-dev": "npm run build",
+    "build": "browserify -t babelify -t vueify client/app.js -o public/bundle.js",
     "lint": "standard"
   },
   "author": "Santiago Pegels",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "7.3.0",
+    "browserify": "^16.2.3",
     "nodemon": "^1.19.1",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "vueify": "^9.4.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   },
   "dependencies": {
+    "chart.js": "^2.8.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
+    "express-asyncify": "^1.0.0",
+    "moment": "^2.24.0",
     "platziverse-agent": "file:../platziverse-agent",
-    "socket.io": "^2.2.0"
+    "random-material-color": "^1.0.5",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
+    "socket.io": "^2.2.0",
+    "vue": "^2.6.10",
+    "vue-chartjs": "^3.4.2"
   }
 }
