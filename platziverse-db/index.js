@@ -7,6 +7,9 @@ const setupAgent = require('./lib/agent')
 const setupMetric = require('./lib/metric')
 const defaults = require('defaults')
 
+// Para depurar funciones asincronas
+if (process.env.DEBUG) require('longjohn')
+
 module.exports = async function (config) {
   config = defaults(config, {
     dialect: 'sqlite',

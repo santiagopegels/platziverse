@@ -1,25 +1,26 @@
 'use strict'
 const debug = require('debug')('platziverse:db:setup')
 const inquirer = require('inquirer')
+const minimist = require('minimist')
 const db = require('./')
 const argv = require('yargs').argv
 
+const args = minimist(process.argv)
 const prompt = inquirer.createPromptModule()
 
 async function setup () {
-  if(!argv.yes) {
-  const answer = await prompt([
-    {
-      type: 'confirm',
-      name: 'setup',
-      message: 'Desea borrar la base de datos?'
-    }
-  ])
-  
+  if (!args.yes) {
+    const answer = await prompt([
+      {
+        type: 'confirm',
+        name: 'setup',
+        message: 'Desea borrar la base de datos?'
+      }
+    ])
 
-  if (!answer.setup) {
-    return console.log('No se borró la base de datos')
-  }
+    if (!answer.setup) {
+      return console.log('No se borró la base de datos')
+    }
   }
 
   const config = {

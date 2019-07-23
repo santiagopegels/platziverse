@@ -1,10 +1,10 @@
 <template>
     <div>
-        <metric uuid="15c3a09c-2b9e-482a-9127-370ef381c623"  type="promiseMetric" ></metric>
         <agent
                 v-for="agent in agents"
                 :uuid="agent.uuid"
-                :key="agent.uuid">
+                :key="agent.uuid"
+                :socket="socket">
         </agent>
         <p v-if="error">{{error}}</p>
     </div>
@@ -19,18 +19,45 @@
 </style>
 
 <script>
+const request = require('request-promise-native')
+const io = require('socket.io-client')
+const {serverHost} = require('../config')
+const socket = io()
   module.exports = {
     data () {
       return {
         agents: [],
-        error: null
+        error: null,
+        socket
       }
     },
     mounted () {
       this.initialize()
     },
     methods: {
-      initialize () {
+      async initialize () {
+        const options = {
+          method: 'GET',
+          url: '${serverHost}/agents',
+          json: true
+        }
+
+        let result
+        try {
+          result = await request(options)
+        } catch(e) {
+          this.error = e.error.error
+          return
+        }
+        this.agents = result
+
+        socket.on('agent/connected', payload => {
+          const {uuid} = payload.agent
+          const existing = this.agents.find(a => a.uuid === uuid)
+          if(!existing) {
+            this.agents.push(payload.agent)
+          }
+        })
       }
     }
   }

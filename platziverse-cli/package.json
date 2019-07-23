@@ -1,0 +1,22 @@
+{
+  "name": "platziverse-cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CLI para la plataforma IoT",
+  "bin": "platziverse.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "author": "Pablo Santiago Pegels",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^13.0.2"
+  },
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.16",
+    "minimist": "^1.2.0",
+    "moment": "^2.24.0",
+    "platziverse-agent": "file:../platziverse-agent"
+  }
+}
